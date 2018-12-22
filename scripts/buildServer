@@ -1,0 +1,7 @@
+#!/usr/bin/env bash 
+SERVER_PATH=/Users/raz/dev/hanbaba-server/
+BUILD_JAR=hanbaba-server-1.0-SNAPSHOT.jar
+
+cd ${SERVER_PATH}
+./gradlew clean build
+sudo scp -i /.ssh/hanbabaKeyPair.pem build/libs/${BUILD_JAR} ec2-user@34.250.78.23:/home/ec2-user/dev/services/hanbaba/
