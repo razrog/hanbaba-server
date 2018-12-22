@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,9 +22,9 @@ public class LessonsController {
 
     @GetMapping("/getAll")
     public List<Lesson> getAllLessons() {
-        return (List<Lesson>) this.lessonRepository.findAll();
+        List<Lesson> all = (List<Lesson>) this.lessonRepository.findAll();
+        return resolveLessonsPaths(all);
     }
-
 
     @GetMapping("/getLessonsFromType")
     public List<Lesson> getLessonsFromType(String type) throws Exception {
@@ -62,4 +63,17 @@ public class LessonsController {
     }
 
 
+    private List<Lesson> resolveLessonsPaths(List<Lesson> list) {
+        List<Lesson> newLessons = new ArrayList<>();
+        list.forEach(lesson -> {
+            try {
+                newLessons.add(new Lesson(lesson.getType(), lesson.getName(), lesson.getDescription(), lesson.getRabbi(), lesson.getDateAdded(), lesson.getPathToFile()));
+            } catch (Exception e) {
+                newLessons.add(lesson);
+            }
+        });
+        return newLessons;
+    }
 }
+
+

@@ -44,17 +44,17 @@ public enum LessonType {
     public static String getPathToFileFromType(LessonType type) throws Exception {
         switch (type) {
             case AVOT:
-                return "/public/music/MP3/PerkeyAvot/";
+                return "/music/MP3/PerkeyAvot/";
             case MOED:
-                return "/public/music/MP3/Moed/";
+                return "/music/MP3/Moed/";
             case GMARA:
-                return "/public/music/MP3/Gmara/";
+                return "/music/MP3/Gmara/";
             case PARASHA:
-                return "/public/music/MP3/Parashot/";
+                return "/music/MP3/Parashot/";
             case HALACHOT:
-                return "/public/music/MP3/HalahotShabat/";
+                return "/music/MP3/HalahotShabat/";
             case MUSAR:
-                return "/public/music/MP3/Musar/";
+                return "/music/MP3/Musar/";
             default:
                 throw new Exception("Couldn't find lesson type in enum!");
         }
