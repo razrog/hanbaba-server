@@ -2,6 +2,8 @@ package com.hanbaba.controllers;
 
 import com.hanbaba.model.Lesson;
 import com.hanbaba.model.LessonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,10 @@ import java.util.List;
 @RequestMapping("/api/lessons")
 public class LessonsController {
     private final LessonRepository lessonRepository;
+    private List<Lesson> lessons = new ArrayList<>();
+
+    private Logger logger = LoggerFactory.getLogger(LessonsController.class);
+
 
     @Autowired
     public LessonsController(LessonRepository lessonRepository) {
@@ -22,8 +28,10 @@ public class LessonsController {
 
     @GetMapping("/getAll")
     public List<Lesson> getAllLessons() {
-        List<Lesson> all = (List<Lesson>) this.lessonRepository.findAll();
-        return resolveLessonsPaths(all);
+        if (lessons.isEmpty()) {
+            return fetchFromDb();
+        }
+        return fetchFromCache();
     }
 
     @GetMapping("/getLessonsFromType")
@@ -60,6 +68,25 @@ public class LessonsController {
     public boolean deleteCustomer(Long id) throws Exception {
         lessonRepository.delete(lessonRepository.findById(id).orElseThrow(Exception::new));
         return true;
+    }
+
+    @GetMapping("/refresh")
+    public List<Lesson> refreshDb() {
+        logger.info("Refreshing all lessons");
+        this.lessons = (List<Lesson>) lessonRepository.findAll();
+        return lessons;
+    }
+
+    private List<Lesson> fetchFromDb() {
+        logger.info("Fetching all lessons from DB");
+        List<Lesson> all = (List<Lesson>) this.lessonRepository.findAll();
+        lessons = resolveLessonsPaths(all);
+        return lessons;
+    }
+
+    private List<Lesson> fetchFromCache() {
+        logger.info("Fetching all lessons from cache");
+        return lessons;
     }
 
 
