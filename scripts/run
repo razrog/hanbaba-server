@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-SERVER_PATH=SERVER_PATH=/Users/ec2-user/dev/services/hanbaba-server/
+SERVER_PATH=SERVER_PATH=/home/ec2-user/dev/services/hanbaba/hanbaba-server/
 BUILD_JAR=hanbaba-server-1.0-SNAPSHOT.jar
 
 cd ${SERVER_PATH}
