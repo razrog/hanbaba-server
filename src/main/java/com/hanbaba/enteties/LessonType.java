@@ -16,7 +16,7 @@ public enum LessonType {
                 return GMARA;
             case "GMARA":
                 return GMARA;
-            case "halacha":
+            case "halachot":
                 return HALACHOT;
             case "HALACHOT":
                 return HALACHOT;
