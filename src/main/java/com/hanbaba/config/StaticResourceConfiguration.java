@@ -20,7 +20,7 @@ public class StaticResourceConfiguration implements WebMvcConfigurer {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api").allowedOrigins("http://localhost");
+                registry.addMapping("/api/**").allowedOrigins("http://localhost");
             }
         };
     }
