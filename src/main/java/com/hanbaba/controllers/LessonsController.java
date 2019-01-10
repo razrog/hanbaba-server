@@ -5,6 +5,7 @@ import com.hanbaba.model.LessonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class LessonsController {
         this.lessonRepository = lessonRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/getAll")
     public List<Lesson> getAllLessons() {
         if (lessons.isEmpty()) {
@@ -34,11 +36,13 @@ public class LessonsController {
         return fetchFromCache();
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/getLessonsFromType")
     public List<Lesson> getLessonsFromType(String type) throws Exception {
         return lessonRepository.findByType(type);
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/addNewLesson")
     public boolean addNewLesson(Lesson lesson) {
         try {
@@ -49,6 +53,7 @@ public class LessonsController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/updateLesson")
     public Lesson updateCustomer(Lesson lesson) throws Exception {
         Lesson updatedLesson = lessonRepository.findById(lesson.getId()).orElseThrow(Exception::new);
@@ -64,12 +69,14 @@ public class LessonsController {
         return updatedLesson;
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/deleteLesson")
     public boolean deleteCustomer(Long id) throws Exception {
         lessonRepository.delete(lessonRepository.findById(id).orElseThrow(Exception::new));
         return true;
     }
 
+    @CrossOrigin(origins = "http://localhost")
     @GetMapping("/refresh")
     public List<Lesson> refreshDb() {
         logger.info("Refreshing all lessons");

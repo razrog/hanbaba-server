@@ -15,14 +15,9 @@ public class StaticResourceConfiguration implements WebMvcConfigurer {
         registry.addViewController("/swagger").setViewName("redirect:/swagger-ui.html");
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins("http://localhost");
-            }
-        };
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**").allowedOrigins("http://localhost");
     }
 
 }
