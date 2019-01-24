@@ -70,7 +70,9 @@ public class Lesson {
     }
 
     public String getPathToFile() throws Exception {
-        if (pathToFile.startsWith("/")) {
+        if (pathToFile.startsWith("/public")) {
+            return pathToFile.split("/public")[1];
+        } else if (pathToFile.startsWith("/music")) {
             return pathToFile;
         } else {
             LessonType lessonType = LessonType.getLessonFromString(this.type);
